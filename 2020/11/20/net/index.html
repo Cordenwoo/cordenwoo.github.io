@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>走出第一步 | Cordenwoo&#39;s Blog</title>
+    <title>.NET 项目找不到ClickOnce清单签名证书 | Cordenwoo&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -80,7 +80,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckhnio9ml0001bhe53pdj8xtg" class="article article-type-post" itemscope
+    <article id="post-cki8zudbw0000k5e507419hxk" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -92,7 +92,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      走出第一步
+      .NET 项目找不到ClickOnce清单签名证书
     </h1>
   
 
@@ -102,7 +102,7 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2020-11-18T14:24:33.505Z" itemprop="datePublished">2020-11-18</time>
+  <time datetime="2020-11-20T15:25:11.000Z" itemprop="datePublished">2020-11-20</time>
 </div>
 
             
@@ -113,10 +113,29 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>作为一个以设计为主要工作的业余开发人员，一直想拥有一个技术Blog，来好好记录自己的成长。技术本身是个很有趣的东西，提出问题解决问题的过程令我着迷。<a id="more"></a>很久以前就被安利了<strong>Hexo</strong> 这个博客框架，但是拖延症的我一直拖到了上个月才动手实践搭建了这个Blog，好的是总算搭建成功并且部署到了<strong>Github</strong> 上，算是完成了这个Blog的第一步。    </p>
-<p>部署<strong>Hexo</strong> 期间第一次接触了<strong>Markdown</strong> ，算是爱上了这个标记语言，它对于文字创作实在是太友好了，完全不需要担心文字排版的事情，渲染出的文章简洁且漂亮（一点也不花哨）。是的，就是喜欢这种简洁干净的设计。<strong>Markdown</strong> 编辑器目前使用的是<strong>Typora</strong> 这款软件，够用，有时候还是不熟悉语法，在写作的过程当中需要查找一下资料。不过目前记笔记用的也是<strong>Markdown</strong> 所以应该还是能够很快熟悉的。</p>
-<p>搭建这个Blog还有一个目的，就是希望在学习的过程中能够不断回顾自己已经学习过的知识。因为我发现我在之前学习过的一些技术，比如<strong>HTML+CSS、Flask</strong> 过了一段时间后竟然忘得干干净净，想要重新回顾却发现无从下手。这也要怪之前没有养成记笔记的好习惯。</p>
-<p>所以我期望这个Blog的主要内容是以<em>学习笔记</em> 和<em>问题及解决方法</em>为主的Blog。希望我能够一直维持更新，因为它代表着自己在不断进步以及不断思考和解决问题。</p>
+            <p>在与创建项目不同的另一台电脑上克隆一个.NET项目时，进行调试的过程当中提示的错误：</p>
+<blockquote>
+<p>在证书存储区中找不到清单签名证书</p>
+</blockquote>
+<p><img src="/2020/11/20/net/wrongimg.png" alt="wrongimg.png"></p>
+<p>出现这个错误的原因：可能是之前部署的程序证书被删掉了或者是证书过期了。<a id="more"></a></p>
+<p>如果在VS中为程序项目开启了ClickOnce，并指定了清单签名证书，那么在取消ClickOnce后，会在csproj文件中残留有关的配置。</p>
+<p>这些配置在本机操作时不会有问题，但是，当使用git、或者新装系统后，则会遇到麻烦，这是因为：</p>
+<ul>
+<li>git自动忽略私钥文件；</li>
+<li>新装VS程序没有原证书的存储信息。</li>
+</ul>
+<h2 id="为什么要进行数字签名？"><a href="#为什么要进行数字签名？" class="headerlink" title="为什么要进行数字签名？"></a>为什么要进行数字签名？</h2><p>为了保证系统的安全，现在Windows（比如Windows 8）对于通过网络上下载的应用程序的执行文件都会首先阻止，并提示用户是否要运行。这个时候，同时会提示这个应用程序的发行者。如果一个没有进行数字签名的应用程序，这个时候发行者就为“未知”，签名后，就可以告知用户这个应用程序是由你提供的。在这里，数字签名就是保证这个应用程序是由你发行，并未被第三方更改的。</p>
+<h2 id="如何解决这个问题？"><a href="#如何解决这个问题？" class="headerlink" title="如何解决这个问题？"></a>如何解决这个问题？</h2><p>方案1：右击项目属性—&gt;签名—&gt;为ClickOnce清单签名，将勾掉的选项去掉。</p>
+<p>（用这个方法后再次运行的时候会自动打开，原因见上面）</p>
+<p>方案2：在签名中创建一个新的签名。。&gt;&gt;&gt;成功解决问题</p>
+<p>方案3：记事本打开相应的csproj文件，调整节点值。<SignManifests>true</SignManifests>将true修改为false。</p>
+<blockquote>
+<p>参考：</p>
+<p><a target="_blank" rel="noopener" href="https://www.bbsmax.com/A/QV5ZLL34zy/">https://www.bbsmax.com/A/QV5ZLL34zy/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/redmoon/p/3166064.html">https://www.cnblogs.com/redmoon/p/3166064.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/190196539/archive/2011/12/03/2272861.html">https://www.cnblogs.com/190196539/archive/2011/12/03/2272861.html</a></p>
+</blockquote>
 
         </div>
 
@@ -135,15 +154,20 @@
     
 <nav class="article-nav">
   
-    <a href="/2020/11/18/Git%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0-01/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/11/25/Git%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0-02/" id="article-nav-newer" class="article-nav-link-wrap">
       <div class="article-nav-caption">下一篇</div>
       <div class="article-nav-title">
         
-          Git学习指南笔记-01
+          Git学习指南笔记-02
         
       </div>
     </a>
   
+  
+    <a href="/2020/11/20/%E2%80%9C%E5%88%9B%E5%BB%BAOffice%E5%8A%A0%E8%BD%BD%E9%A1%B9%E5%8A%9F%E8%83%BD%E5%8C%BA%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%E2%80%9D/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">创建Office加载项功能区重叠问题</div>
+    </a>
   
 </nav>
 
@@ -151,15 +175,15 @@
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=走出第一步 - Cordenwoo's Blog&url=http://example.com/2020/11/18/%E8%B5%B0%E5%87%BA%E7%AC%AC%E4%B8%80%E6%AD%A5/">
+            href="https://twitter.com/share?text=.NET 项目找不到ClickOnce清单签名证书 - Cordenwoo's Blog&url=http://example.com/2020/11/20/net/">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=走出第一步 - Cordenwoo's Blog&u=http://example.com/2020/11/18/%E8%B5%B0%E5%87%BA%E7%AC%AC%E4%B8%80%E6%AD%A5/">
+            href="https://www.facebook.com/sharer.php?title=.NET 项目找不到ClickOnce清单签名证书 - Cordenwoo's Blog&u=http://example.com/2020/11/20/net/">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=走出第一步 - Cordenwoo's Blog&url=http://example.com/2020/11/18/%E8%B5%B0%E5%87%BA%E7%AC%AC%E4%B8%80%E6%AD%A5/&pic=">
+            href="https://service.weibo.com/share/share.php?title=.NET 项目找不到ClickOnce清单签名证书 - Cordenwoo's Blog&url=http://example.com/2020/11/20/net/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>

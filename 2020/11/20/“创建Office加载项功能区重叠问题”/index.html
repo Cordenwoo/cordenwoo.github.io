@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Hello World | Cordenwoo&#39;s Blog</title>
+    <title>创建Office加载项功能区重叠问题 | Cordenwoo&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -80,7 +80,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckhnio9mm0002bhe54cdmcg9s" class="article article-type-post" itemscope
+    <article id="post-cki9030s90000h8e589al5t9q" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -92,7 +92,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      创建Office加载项功能区重叠问题
     </h1>
   
 
@@ -102,7 +102,7 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2020-09-21T15:06:22.051Z" itemprop="datePublished">2020-09-21</time>
+  <time datetime="2020-11-20T11:10:23.000Z" itemprop="datePublished">2020-11-20</time>
 </div>
 
             
@@ -113,15 +113,17 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+            <p>这个问题之前一直困扰到了我，曾经有一段时间一直都没有解决它。直到功能越做越多，看到两个独立的插件在功能区重叠到一起实在是不能忍，所以找了很多资料，终于解决了它。</p>
+<p>原理其实很简单，但是我在寻找解决方法的过程当中想的过度复杂了，以至于这个问题花费了我很长的时间（可惜开发Office插件的开发者太少或是这个问题本身太简单，我并没有搜到相关的解决方案）。</p>
+<a id="more"></a>
+
+<p>我起初在项目本身的属性里寻找答案，想的是有没有一个类似项目专属ID的属性，表示这个软件是独一无二的（可能以某种编码来表示）。但是在一番寻找和测试之后并没有发现相关的属性。</p>
+<p><img src="/2020/11/20/%E2%80%9C%E5%88%9B%E5%BB%BAOffice%E5%8A%A0%E8%BD%BD%E9%A1%B9%E5%8A%9F%E8%83%BD%E5%8C%BA%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%E2%80%9D/image.png" alt="image.png"></p>
+<p>在项目本身属性里寻找无果后，我的思路转到了  <strong>功能区设计器（Ribbon）</strong> 本身。在属性栏里，我看到了一个叫 <strong>ControldID</strong> 的选项，提示的是<em>选项卡内部 ID，</em>我尝试把这个属性下面的 <strong>ControlldType</strong> 默认的 <strong>Office</strong>改为了 <strong>Custom</strong> ，这一步相当于把标识为内部的控件，修改为标识标识为用户定义的控件</p>
+<p><img src="/2020/11/20/%E2%80%9C%E5%88%9B%E5%BB%BAOffice%E5%8A%A0%E8%BD%BD%E9%A1%B9%E5%8A%9F%E8%83%BD%E5%8C%BA%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%E2%80%9D/image2.png" alt="image2.png">        </p>
+<p><img src="/2020/11/20/%E2%80%9C%E5%88%9B%E5%BB%BAOffice%E5%8A%A0%E8%BD%BD%E9%A1%B9%E5%8A%9F%E8%83%BD%E5%8C%BA%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%E2%80%9D/image3.png" alt="image3.png"></p>
+<p>然后就成功了，两个插件分别以不同的Tab显示了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>功能区设计器（Ribbon）</strong> 默认是以内置控件来标识的这个RibbonTab的，这会导致多个不同的加载项的Tab重叠到一个Tab里面。很简单的一个问题，确实是和ID有关系，只不过重点在这个Tab的ID上，而我却把重点放在了整个加载项上。</p>
 
         </div>
 
@@ -140,15 +142,20 @@
     
 <nav class="article-nav">
   
-    <a href="/2020/11/18/%E8%B5%B0%E5%87%BA%E7%AC%AC%E4%B8%80%E6%AD%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/11/20/net/" id="article-nav-newer" class="article-nav-link-wrap">
       <div class="article-nav-caption">下一篇</div>
       <div class="article-nav-title">
         
-          走出第一步
+          .NET 项目找不到ClickOnce清单签名证书
         
       </div>
     </a>
   
+  
+    <a href="/2020/11/18/Git%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0-01/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Git学习指南笔记-01</div>
+    </a>
   
 </nav>
 
@@ -156,15 +163,15 @@
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=Hello World - Cordenwoo's Blog&url=http://example.com/2020/09/21/hello-world/">
+            href="https://twitter.com/share?text=创建Office加载项功能区重叠问题 - Cordenwoo's Blog&url=http://example.com/2020/11/20/%E2%80%9C%E5%88%9B%E5%BB%BAOffice%E5%8A%A0%E8%BD%BD%E9%A1%B9%E5%8A%9F%E8%83%BD%E5%8C%BA%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%E2%80%9D/">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=Hello World - Cordenwoo's Blog&u=http://example.com/2020/09/21/hello-world/">
+            href="https://www.facebook.com/sharer.php?title=创建Office加载项功能区重叠问题 - Cordenwoo's Blog&u=http://example.com/2020/11/20/%E2%80%9C%E5%88%9B%E5%BB%BAOffice%E5%8A%A0%E8%BD%BD%E9%A1%B9%E5%8A%9F%E8%83%BD%E5%8C%BA%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%E2%80%9D/">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=Hello World - Cordenwoo's Blog&url=http://example.com/2020/09/21/hello-world/&pic=">
+            href="https://service.weibo.com/share/share.php?title=创建Office加载项功能区重叠问题 - Cordenwoo's Blog&url=http://example.com/2020/11/20/%E2%80%9C%E5%88%9B%E5%BB%BAOffice%E5%8A%A0%E8%BD%BD%E9%A1%B9%E5%8A%9F%E8%83%BD%E5%8C%BA%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%E2%80%9D/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
@@ -209,15 +216,23 @@
       <ul>
         
           <li>
+            <a href="/2020/11/27/%E5%9C%A8Office%E5%8A%A0%E8%BD%BD%E9%A1%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0WPF%E7%AA%97%E5%8F%A3/">在Office加载项中添加WPF窗口</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/25/Git%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0-02/">Git学习指南笔记-02</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/20/net/">.NET 项目找不到ClickOnce清单签名证书</a>
+          </li>
+        
+          <li>
+            <a href="/2020/11/20/%E2%80%9C%E5%88%9B%E5%BB%BAOffice%E5%8A%A0%E8%BD%BD%E9%A1%B9%E5%8A%9F%E8%83%BD%E5%8C%BA%E9%87%8D%E5%8F%A0%E9%97%AE%E9%A2%98%E2%80%9D/">创建Office加载项功能区重叠问题</a>
+          </li>
+        
+          <li>
             <a href="/2020/11/18/Git%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0-01/">Git学习指南笔记-01</a>
-          </li>
-        
-          <li>
-            <a href="/2020/11/18/%E8%B5%B0%E5%87%BA%E7%AC%AC%E4%B8%80%E6%AD%A5/">走出第一步</a>
-          </li>
-        
-          <li>
-            <a href="/2020/09/21/hello-world/">Hello World</a>
           </li>
         
       </ul>
@@ -229,7 +244,7 @@
   <div class="widget-wrap widget-archive">
     <div class="widget-title"><span>Archive</span></div>
     <div class="widget-inner">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">2020</a></li></ul>
     </div>
   </div>
 

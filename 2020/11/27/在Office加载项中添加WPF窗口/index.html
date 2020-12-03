@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>走出第一步 | Cordenwoo&#39;s Blog</title>
+    <title>在Office加载项中添加WPF窗口 | Cordenwoo&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     
@@ -80,7 +80,7 @@
             <section class="inner">
                 <section class="inner-main">
                     <div class="post">
-    <article id="post-ckhnio9ml0001bhe53pdj8xtg" class="article article-type-post" itemscope
+    <article id="post-cki90hu0m0000l0e5078353tg" class="article article-type-post" itemscope
     itemprop="blogPost">
 
     <div class="article-inner">
@@ -92,7 +92,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      走出第一步
+      在Office加载项中添加WPF窗口
     </h1>
   
 
@@ -102,7 +102,7 @@
         <div class="article-more-info article-more-info-post hairline">
 
             <div class="article-date">
-  <time datetime="2020-11-18T14:24:33.505Z" itemprop="datePublished">2020-11-18</time>
+  <time datetime="2020-11-27T03:44:20.000Z" itemprop="datePublished">2020-11-27</time>
 </div>
 
             
@@ -113,10 +113,31 @@
         </div>
 
         <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            <p>作为一个以设计为主要工作的业余开发人员，一直想拥有一个技术Blog，来好好记录自己的成长。技术本身是个很有趣的东西，提出问题解决问题的过程令我着迷。<a id="more"></a>很久以前就被安利了<strong>Hexo</strong> 这个博客框架，但是拖延症的我一直拖到了上个月才动手实践搭建了这个Blog，好的是总算搭建成功并且部署到了<strong>Github</strong> 上，算是完成了这个Blog的第一步。    </p>
-<p>部署<strong>Hexo</strong> 期间第一次接触了<strong>Markdown</strong> ，算是爱上了这个标记语言，它对于文字创作实在是太友好了，完全不需要担心文字排版的事情，渲染出的文章简洁且漂亮（一点也不花哨）。是的，就是喜欢这种简洁干净的设计。<strong>Markdown</strong> 编辑器目前使用的是<strong>Typora</strong> 这款软件，够用，有时候还是不熟悉语法，在写作的过程当中需要查找一下资料。不过目前记笔记用的也是<strong>Markdown</strong> 所以应该还是能够很快熟悉的。</p>
-<p>搭建这个Blog还有一个目的，就是希望在学习的过程中能够不断回顾自己已经学习过的知识。因为我发现我在之前学习过的一些技术，比如<strong>HTML+CSS、Flask</strong> 过了一段时间后竟然忘得干干净净，想要重新回顾却发现无从下手。这也要怪之前没有养成记笔记的好习惯。</p>
-<p>所以我期望这个Blog的主要内容是以<em>学习笔记</em> 和<em>问题及解决方法</em>为主的Blog。希望我能够一直维持更新，因为它代表着自己在不断进步以及不断思考和解决问题。</p>
+            <p>目前Office默认加载项的新建项目中是不支持添加WPF窗口的，它默认只能够添加Winform窗体。本身WPF在2020年早已不是什么新鲜玩意，过了这么多年竟然还仅仅支持更古老的Winform。虽说VSTO本身也是个很古老的玩意，微软好像也更希望开发者在Office跨平台插件上下功夫，但是目前国内在这方面领域的研究尚未成熟，已有的跨平台插件甚至少之又少。所以目前我的目标还是把VSTO研究透了再考虑跨平台的事情，毕竟现在我无法全部融入Mac生态的原因就是这些功能不能在Mac下实现。</p>
+<a id="more"></a>
+
+<p>Office加载项和WPF都使用的是.NET框架，按理来说他们应该是可以相互兼容的，而且在Office加载项中是可以添加WPF用户控件的，所以理论上它应该是支持WPF窗口的。所以经过了几天的实践和测试，目前得出了一套在Office加载项中添加WPF窗口的方法。<img src="/2020/11/27/%E5%9C%A8Office%E5%8A%A0%E8%BD%BD%E9%A1%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0WPF%E7%AA%97%E5%8F%A3/image.png" alt="image.png"></p>
+<h2 id="添加WPF窗口"><a href="#添加WPF窗口" class="headerlink" title="添加WPF窗口"></a>添加WPF窗口</h2><ol>
+<li>新建一个 <strong>WPF应用（.NET Framwork）</strong> 项目，VS会自动创建WPF应用所需文件。</li>
+</ol>
+<p><img src="/2020/11/27/%E5%9C%A8Office%E5%8A%A0%E8%BD%BD%E9%A1%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0WPF%E7%AA%97%E5%8F%A3/image-1.png" alt="image-1.png"></p>
+<ol>
+<li>在Office加载项的项目中添加 <strong>现有项</strong> ，把上一步创建的 <strong>MainWindow</strong> 窗口和该窗口的 <strong>.cs</strong> 文件添加进来。</li>
+</ol>
+<p><img src="/2020/11/27/%E5%9C%A8Office%E5%8A%A0%E8%BD%BD%E9%A1%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0WPF%E7%AA%97%E5%8F%A3/image-2.png" alt="image-2.png"></p>
+<p>3.在Office加载项的引用中添加这几个程序集：<strong>PresentationCore，PrentationFramework，WindowsBase</strong></p>
+<p><strong><img src="/2020/11/27/%E5%9C%A8Office%E5%8A%A0%E8%BD%BD%E9%A1%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0WPF%E7%AA%97%E5%8F%A3/image-3.png" alt="image-3.png"></strong></p>
+<ol>
+<li>完成以上几个步骤，我们就可以在Office加载项中引用WPF窗口文件了。</li>
+</ol>
+<pre><code>Window testw1 = new TestWindow.MainWindow();
+testw1.Show();</code></pre>
+<h2 id="添加多个WPF窗口"><a href="#添加多个WPF窗口" class="headerlink" title="添加多个WPF窗口"></a>添加多个WPF窗口</h2><p>我们可以通过复制的方式创建多个WPF窗口：</p>
+<p><img src="/2020/11/27/%E5%9C%A8Office%E5%8A%A0%E8%BD%BD%E9%A1%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0WPF%E7%AA%97%E5%8F%A3/image-4.png" alt="image-4.png"></p>
+<p>把窗口的命名修改一下：</p>
+<p>.xmal文件中修改 <code>x:Class= </code> 属性</p>
+<p>.cs文件中修改 <code>namespace</code> 名称即可，表示这是另外一个独立的窗口。</p>
+<h4 id="为什么不直接在Office加载项中引用WPF程序，这样就可以调用WPF程序中的窗口了？"><a href="#为什么不直接在Office加载项中引用WPF程序，这样就可以调用WPF程序中的窗口了？" class="headerlink" title="为什么不直接在Office加载项中引用WPF程序，这样就可以调用WPF程序中的窗口了？"></a>为什么不直接在Office加载项中引用WPF程序，这样就可以调用WPF程序中的窗口了？</h4><p>我一直都觉得这个思路才是正确的思路，甚至我在尝试出以上解决方法后还在研究这个方法。但是这样会遇到一个问题，Office加载项为了调用窗口引用了WPF程序，而WPF窗口为了调用PowerPoint来操控PowerPoint程序里面的内容，就需要引用Office加载项，这样的相互引用会导致循环依赖项，C#中禁止这样的相互引用。所以顺着这个思路以我目前的知识没有找到可以解决的办法。所以只能把WPF窗口放在Office加载项项目中，这样WPF就能够调用PowePoint了。</p>
 
         </div>
 
@@ -135,15 +156,11 @@
     
 <nav class="article-nav">
   
-    <a href="/2020/11/18/Git%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0-01/" id="article-nav-newer" class="article-nav-link-wrap">
-      <div class="article-nav-caption">下一篇</div>
-      <div class="article-nav-title">
-        
-          Git学习指南笔记-01
-        
-      </div>
-    </a>
   
+    <a href="/2020/11/25/Git%E5%AD%A6%E4%B9%A0%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0-02/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Git学习指南笔记-02</div>
+    </a>
   
 </nav>
 
@@ -151,15 +168,15 @@
     <section class="share">
         <div class="share-title">分享</div>
         <a class="share-item" target="_blank"
-            href="https://twitter.com/share?text=走出第一步 - Cordenwoo's Blog&url=http://example.com/2020/11/18/%E8%B5%B0%E5%87%BA%E7%AC%AC%E4%B8%80%E6%AD%A5/">
+            href="https://twitter.com/share?text=在Office加载项中添加WPF窗口 - Cordenwoo's Blog&url=http://example.com/2020/11/27/%E5%9C%A8Office%E5%8A%A0%E8%BD%BD%E9%A1%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0WPF%E7%AA%97%E5%8F%A3/">
             <box-icon type='logo' name='twitter'></box-icon>
         </a>
         <a class="share-item" target="_blank"
-            href="https://www.facebook.com/sharer.php?title=走出第一步 - Cordenwoo's Blog&u=http://example.com/2020/11/18/%E8%B5%B0%E5%87%BA%E7%AC%AC%E4%B8%80%E6%AD%A5/">
+            href="https://www.facebook.com/sharer.php?title=在Office加载项中添加WPF窗口 - Cordenwoo's Blog&u=http://example.com/2020/11/27/%E5%9C%A8Office%E5%8A%A0%E8%BD%BD%E9%A1%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0WPF%E7%AA%97%E5%8F%A3/">
             <box-icon name='facebook-square' type='logo' ></box-icon>
         </a>
         <!-- <a class="share-item" target="_blank"
-            href="https://service.weibo.com/share/share.php?title=走出第一步 - Cordenwoo's Blog&url=http://example.com/2020/11/18/%E8%B5%B0%E5%87%BA%E7%AC%AC%E4%B8%80%E6%AD%A5/&pic=">
+            href="https://service.weibo.com/share/share.php?title=在Office加载项中添加WPF窗口 - Cordenwoo's Blog&url=http://example.com/2020/11/27/%E5%9C%A8Office%E5%8A%A0%E8%BD%BD%E9%A1%B9%E4%B8%AD%E6%B7%BB%E5%8A%A0WPF%E7%AA%97%E5%8F%A3/&pic=">
             <div class="n-icon n-icon-weibo"></div>
         </a> -->
     </section>
